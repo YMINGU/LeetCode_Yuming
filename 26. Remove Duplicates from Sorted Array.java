@@ -28,4 +28,20 @@ class Solution {
         }
         return count;      
     }
-}  
+} 
+
+---------------------------------------------------
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int count=0;
+        for(int i=nums.length-1;i>0;i--){
+            if(nums[i]==nums[i-1]){
+                for(int j=i;j+1<nums.length;j++){
+                    nums[j]=nums[j+1];
+                }
+                count++;
+            }
+        }
+        return nums.length-count;        
+    }
+}
