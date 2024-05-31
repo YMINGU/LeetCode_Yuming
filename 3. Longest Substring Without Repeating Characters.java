@@ -34,3 +34,23 @@ class Solution {
         return ans;
     }
 }
+
+
+
+---------------------------------------------------------
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        dic=set()
+        left=right=ans=0
+        while right<len(s):
+            if s[right] not in dic:
+                dic.add(s[right])
+                right+=1
+                ans=max(ans,right-left)
+            else:
+                dic.remove(s[left])
+                left+=1
+        return ans
+                
+            
+        
