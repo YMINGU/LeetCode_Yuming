@@ -6,21 +6,29 @@
 #         self.right = right
 from collections import deque
 class Solution:
-    def largestValues(self, root: Optional[TreeNode]) -> List[int]:
+    def deepestLeavesSum(self, root: Optional[TreeNode]) -> int:
         if root==None:
-            return []
-        queue=deque([root])
-        ans=[]
+            return 0
+        queue=deque([(root,0)])
+        ans=0
+        depth=0
         while queue:
             length=len(queue)
-            currmax=float("-inf")
             for _ in range(length):
-                node=queue.popleft()
-                currmax=max(currmax,node.val)
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-            ans.append(currmax)
+                node,curr=queue.popleft()
+                if node.left==None and node.right==None:
+                    if depth<curr:
+                        ans=node.val
+                        depth=curr
+                    elif depth==curr:
+                        ans+=node.val
+                    
+                else:
+                    if node.left:
+                        queue.append((node.left,curr+1))
+                    if node.right:
+                        queue.append((node.right,curr+1))
         return ans
--------------
+                    
+        
+        
