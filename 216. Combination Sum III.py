@@ -38,3 +38,18 @@ class Solution:
         backtrack(n, [], 0)
 
         return results
+    ------
+    class Solution:
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        def backtrack(remain,curr,next_start):
+            if remain==0 and len(curr)==k:
+                ans.append(curr[:])
+                return
+            for i in range(next_start,10):
+                curr.append(i)
+                backtrack(remain-i,curr,i+1)
+                curr.pop()
+        ans=[]
+        backtrack(n,[],1)
+        return ans
+        
