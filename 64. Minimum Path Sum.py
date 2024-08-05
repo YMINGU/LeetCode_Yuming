@@ -32,4 +32,20 @@ class Solution:
                     ans=min(ans,dp[i][j-1])
                 dp[i][j]=grid[i][j]+ans
         return dp[m-1][n-1]
+    ----
+    class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        m=len(grid)
+        n=len(grid[0])
+        dp=[float("inf")]*n
+        dp[0]=0
+        for row in range(m):
+            next_row=[0]*n
+            for col in range(n):
+                next_row[col]=dp[col]
+                if col>0:
+                    next_row[col]=min(next_row[col],next_row[col-1])
+                next_row[col]+=grid[row][col]
+            dp=next_row
+        return dp[n-1]
         
