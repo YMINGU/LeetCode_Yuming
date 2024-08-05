@@ -24,5 +24,19 @@ class Solution:
                 if col>0:
                     dp[row][col]+=dp[row][col-1]
         return dp[m-1][n-1]
+-----
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        dp=[0]*n
+        dp[0]=1
+        for _ in range(m):
+            next_row=[0]*n
+            for col in range(n):
+                next_row[col]+=dp[col]
+                if col>0:
+                    next_row[col]+=next_row[col-1]
+            dp=next_row
+        return dp[n-1]
+        
         
         
