@@ -35,4 +35,43 @@ class Solution(object):
             else:
                 right=mid-1
         return left
+    -----
+from collections import deque
+class Solution(object):
+    def canCross(self,m,n,cells,day):
+        grid=[[0]*n for _ in range(m)]
+        queue=deque()
+        for r,c in cells[:day]:
+            grid[r-1][c-1]=1
+        def dfs(r,c):
+            if r<0 or r>=m or c<0 or c>=n or grid[r][c]!=0:
+                return False
+            if r==m-1:
+                return True
+            grid[r][c]=-1
+            for dr,dc in [(1,0),(0,1),(-1,0),(0,-1)]:
+                if dfs(r+dr,c+dc):
+                    return True
+            return False
+        for i in range(n):
+            if grid[0][i]==0 and dfs(0,i):
+                return True
+        return False
+    def latestDayToCross(self, row, col, cells):
+        """
+        :type row: int
+        :type col: int
+        :type cells: List[List[int]]
+        :rtype: int
+        """
+        left=1
+        right=row*col
+        while left<right:
+            mid=right-(right-left)//2
+            if self.canCross(row,col,cells,mid):
+                left=mid
+            else:
+                right=mid-1
+        return left
+        
         
