@@ -1,0 +1,2 @@
+# Write your MySQL query statement below
+WITH cte AS (SELECT a.trans_id AS id,b.country AS country,'chargeback' AS state,b.amount,LEFT(a.trans_date,7) AS month FROM Chargebacks a LEFT JOIN Transactions b ON a.trans_id=b.id UNION ALL SELECT id,country,state,amount,LEFT(trans_date,7)AS month FROM Transactions WHERE state='approved') SELECT month,country,SUM(state='approved') AS approved_count,SUM((state='approved')*amount) AS approved_amount,SUM(state='chargeback') AS chargeback_count,SUM((state='chargeback')*amount) AS chargeback_amount FROM cte GROUP BY 1,2
